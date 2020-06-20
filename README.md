@@ -16,7 +16,7 @@ Esta é a sua chave e deve ser guardada da mesma maneira que você guarda uma se
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Variables Inputs
 | Name | Descrição | Tipo | Default | Requerida |
-|-----------------------------------------------|
+|----- | --------- | ---- | ------- | --------- |
 | create_user | Se deseja criar um usuario | bool | `"true"` | no |
 | iam_user_login_profile | Se deseja criar um perfil de login de usuario | bool | `"true"` | no |
 | iam_access_key | Se deseja criar chave de acesso do IAM | bool | `"true"` | no |
