@@ -1,38 +1,49 @@
-# iam-user
-Criando o usuário do IAM, o perfil de login do IAM, um chave de acesso do IAM criado randomicamente.
+# # Terraform module to Create New IAM user
+Creating the IAM user, the IAM login profile, a randomly created IAM access key
 
 ### Keybase pre-requisits
-Quando `pgp_key` é especificado como `keybase:username`, certifique-se de que este usuário já enviou a chave pública para keybase.io.
+When `pgp_key` is specified as`keybase:username`, make sure that this user has already sent the public key to keybase.io.
 
 ### Como descriptografar a senha criptografada
-A maneira mais fácil de descriptografar sua chave é com o Keybase CLI. Para obter a chave, você deve descriptografar o valor fornecido pelo inicializador, execute o seguinte commando.
+The easiest way to decrypt your key is with the Keybase CLI. To obtain the key, you must decrypt the value provided by the initiator, execute the following command.
 
 ```bash
 $ echo "wcBMA37..." | base64 -d | keybase pgp decrypt
 ```
-A saída será a chave em texto simples
-Esta é a sua chave e deve ser guardada da mesma maneira que você guarda uma senha.
+The output will be the key in plain text
+This is your key and should be kept in the same way that you keep a password.
+
+## Requirements
+| Name | Version |
+| ---- | ------- |
+| aws | ~> 2.54 |
+| terraform | ~> 0.12 |
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Variables Inputs
-| Name | Descrição | Tipo | Default | Requerida |
-|----- | --------- | ---- | ------- | --------- |
-| create_user | Se deseja criar um usuario | bool | `"true"` | no |
-| iam_user_login_profile | Se deseja criar um perfil de login de usuario | bool | `"true"` | no |
-| iam_access_key | Se deseja criar chave de acesso do IAM | bool | `"true"` | no |
-| iam_https-git-credentials | Se deseja anexa Policy para acesso ao AWS Commit | bool | `"true"` | no |
-| iam_user_ssh_key | Se deseja importar uma chave SSH | bool | `"false"` | no |
-| iam_user_name | O nome do usuario que irá criar | string | `" "` | yes |
-| force_destroy | Ao destruir este usuário, destrua mesmo se ele tiver chaves de acesso IAM não gerenciadas pelo Terraform | bool | `"false"` | no |
-| permissions_boundary | O ARN da política usada para definir o limite de permissões para o usuário | string | `" "` | no |
-| path | O path desejado para o usuário do IAM | string | `"/"` | no |
-| encoding | Especifica o formato de codificação da chave pública a ser usada. Para recuperar a chave pública no formato ssh-rsa, use o SSH. Para recuperar a chave pública no formato PEM, use o PEM | string | `"SSH"` | no |
-| public_key | A chave pública do SSH. A chave pública deve ser codificada no formato ssh-rsa ou no formato PEM | string | `" "` | no |
-| pgp_key | Uma chave pública PGP codificada com base 64 ou um nome de usuário keybase na key keybase:username. Usado para criptografar senha e chave de acesso. | string | | yes |
-| password_length | O comprimento da senha gerada | number | `"20"` | no |
-| password_reset_required | Se o usuário deve ser forçado a redefinir a senha gerada no primeiro login | bool | `"false"` | no |
-| tag_name | Tags para adicionar a todos os recursos | string | `" "` | yes |
-| tag_time | Tags para adicionar o nome do time relacioando a todos os recursos | string | `" "` | yes |
+| Name | Description | Required | Type | Default |
+|----- | ----------- | -------- | ---- | ------- |
+| iam_user_login_profile | If you want to create a user login profile | `no` | `bool` | `true` |
+| iam_access_key | If you want to create an IAM access key | `no` | `bool` | `true` |
+| iam_https-git-credentials | If you want to attach Policy for access to the AWS Commit | `no` | `bool` | `true` |
+| iam_user_ssh_key | If you want to import an SSH key | `no` | `bool` | `false` |
+| iam_user_name | The name of the user who will create | `yes` | `string` | ` ` |
+| force_destroy | When destroying this user, destroy even if he has IAM access keys not managed by Terraform | `no` | `bool` | `false` |
+| permissions_boundary | The ARN of the policy used to set the permission limit for the user | `no` | `string` | `null` |
+| path | The desired path for the IAM user | `no` | `string` | `/` |
+| encoding | Specifies the encoding format of the public key to be used. To retrieve the public key in the ssh-rsa format, use SSH. To retrieve the public key in PEM format, use PEM | `no` | `string` | `SSH` |
+| public_key | The SSH public key. The public key must be encoded in ssh-rsa format or in PEM format | `no` | `string` | ` ` |
+| pgp_key | A base 64 encoded PGP public key or a keybase username in the key keybase: username. Used to encrypt password and access key. | `yes` | `string` | ` ` |
+| password_length | The length of the generated password | `no` | `number` | `20` |
+| password_reset_required | Whether the user should be forced to reset the password generated at first login | `no` | `bool` | `false` |
+| default_tags | Tags to add to all resources | `yes` | `map` | `{ }` |
+
 
 ## Variable Outputs
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Description |
+| ---- | ----------- |
+| iam_user | The user's name. |
+| secret | The password of the user's. |
+| access_key | The access key of the user's. |
+| encrypted_password | The access secret of the user's. |

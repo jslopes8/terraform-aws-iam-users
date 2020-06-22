@@ -53,16 +53,7 @@ variable "password_reset_required" {
     type    = bool
     default  = "false"
 }
-variable "tag_name" {
-  type        = string
-  default     = ""
+variable "default_tags" {
+    type    = any
+    default = {}
 }
-variable "tag_time" {
-    type    = string
-    default = ""
-}
-variable "tag_role" {
-    type    = string
-    default = ""
-}
-

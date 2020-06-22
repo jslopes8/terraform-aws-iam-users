@@ -5,11 +5,8 @@ resource "aws_iam_user" "new-user" {
     path                    = "${var.path}"
     force_destroy           = "${var.force_destroy}"
     permissions_boundary    = "${var.permissions_boundary}"
-    tags = {
-        Name    = "${var.tag_name}"
-        Team    = "${var.tag_time}"
-        Role    = "${var.tag_role}"
-    }
+
+    tags = var.default_tags
 }
 resource "aws_iam_access_key" "access-key" {
     count = var.create_user && var.iam_access_key ? 1 : 0
