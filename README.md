@@ -4,7 +4,7 @@ Creating the IAM user, the IAM login profile, a randomly created IAM access key
 ### Keybase pre-requisits
 When `pgp_key` is specified as`keybase:username`, make sure that this user has already sent the public key to keybase.io.
 
-### Como descriptografar a senha criptografada
+### How to decrypt the encrypted password
 The easiest way to decrypt your key is with the Keybase CLI. To obtain the key, you must decrypt the value provided by the initiator, execute the following command.
 
 ```bash
