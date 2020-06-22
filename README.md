@@ -22,7 +22,7 @@ module "iam_user" {
     iam_user_name           = "tirulipa"
     force_destroy           = "true"
     path                    = "/"
-    pgp_key                 = "keybase:jlopsti"
+    pgp_key                 = "keybase:user"
 
     iam_user_login_profile  = true
     iam_access_key          = "false"
