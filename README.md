@@ -17,7 +17,7 @@ This is your key and should be kept in the same way that you keep a password.
 Example of the use: Creating a new IAM User
 ```hcl
 module "iam_user" {
-    source  = "../../../../../terraform-aws-modules/global/iam/users"
+    source  = "git@github.com:jslopes8/terraform-aws-iam-users.git?ref=v1.1"
 
     iam_user_name           = "tirulipa"
     force_destroy           = "true"
