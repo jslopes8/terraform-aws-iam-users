@@ -1,4 +1,4 @@
-# # Terraform module to Create New IAM user
+# Terraform module to Create New IAM user
 Creating the IAM user, the IAM login profile, a randomly created IAM access key
 
 ### Keybase pre-requisits
@@ -12,6 +12,31 @@ $ echo "wcBMA37..." | base64 -d | keybase pgp decrypt
 ```
 The output will be the key in plain text
 This is your key and should be kept in the same way that you keep a password.
+
+## Usage
+Example of the use: Creating a new IAM User
+```hcl
+module "iam_user" {
+    source  = "../../../../../terraform-aws-modules/global/iam/users"
+
+    iam_user_name           = "tirulipa"
+    force_destroy           = "true"
+    path                    = "/"
+    pgp_key                 = "keybase:jlopsti"
+
+    iam_user_login_profile  = true
+    iam_access_key          = "false"
+    password_reset_required = "true"
+    password_length         = "32"
+
+    # tags
+    default_tags    = {
+        Name            = "Tirulipa da Silva"
+        Squad           = "Desenvolvedor"
+        ApplicationRole = "Porta Web"
+    }
+}
+```
 
 ## Requirements
 | Name | Version |
