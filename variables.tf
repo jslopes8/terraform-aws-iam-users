@@ -42,7 +42,7 @@ variable "public_key" {
     default = ""
 }
 variable "pgp_key" {
-    type    = "string"
+    type    = string
     default = ""
 }
 variable "password_length" {
