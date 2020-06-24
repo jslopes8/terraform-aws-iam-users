@@ -22,23 +22,23 @@ variable "force_destroy" {
     default = false
 }
 variable "permissions_boundary" {
-    type    = "string"
-    default = ""
+    type    = string
+    default = null
 }
 variable "path" {
-    type    = "string"
+    type    = string
     default = "/"
 }
 variable "iam_user_ssh_key" {
     type    = bool
-    default = "false"
+    default = false
 }
 variable "encoding" {
-    type    = "string"
+    type    = string
     default = "SSH"
 }
 variable "public_key" {
-    type    = "string"
+    type    = string
     default = ""
 }
 variable "pgp_key" {
@@ -51,7 +51,7 @@ variable "password_length" {
 }
 variable "password_reset_required" {
     type    = bool
-    default  = "false"
+    default  = false
 }
 variable "default_tags" {
     type    = any
