@@ -35,7 +35,11 @@ resource "aws_iam_policy_attachment" "https-git-credentials" {
     users      =  [ aws_iam_user.new-user.0.name ]
     policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitPowerUser"
 }
-resource "null_resource" "exemplo" {
+resource "null_resource" "password_decrypt" {
+    depend_on = [ aws_iam_user_login_profile.login-profile ]
+
+    count = var.create_user && var.iam_user_login_profile ? 1 : 0
+
     provisioner "local-exec" {
         command     = "echo ${aws_iam_user_login_profile.login-profile.0.encrypted_password} | base64 -d | keybase pgp decrypt"
     }
