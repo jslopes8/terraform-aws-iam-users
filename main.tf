@@ -46,7 +46,7 @@ resource "aws_iam_policy_attachment" "https-git-credentials" {
 
 ## Gerar Senha AWS Console para o IAM Usuario
 resource "null_resource" "password_decrypt" {
-    depend_on = [ aws_iam_user_login_profile.login-profile ]
+    depends_on = [ aws_iam_user_login_profile.login-profile ]
 
     count = var.create_user && var.iam_user_login_profile ? 1 : 0
 
@@ -62,13 +62,13 @@ resource "null_resource" "password_decrypt" {
 
 ## Data Source para obter a senha do IAM usuario
 data "template_file" "user_file" {
-    depend_on = [ aws_iam_user_login_profile.login-profile ]
+    depends_on = [ aws_iam_user_login_profile.login-profile ]
     count = var.create_user && var.iam_user_login_profile ? 1 : 0
 
     template = "${path.module}/tpl/user_file.tpl"
 }
 data "local_file" "user_file" {
-    depend_on = [ aws_iam_user_login_profile.login-profile, null_resource.password_decrypt ]
+    depends_on = [ aws_iam_user_login_profile.login-profile, null_resource.password_decrypt ]
     count = var.create_user && var.iam_user_login_profile ? 1 : 0
 
     filename = "${data.template_file.user_file.rendered}"
