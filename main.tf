@@ -55,7 +55,7 @@ resource "null_resource" "password_decrypt" {
         command     = <<EOF
             echo "${aws_iam_user_login_profile.login-profile.0.encrypted_password}" | \
             base64 -d | \
-            keybase pgp decrypt > > "${data.template_file.user_file.0.rendered}"
+            keybase pgp decrypt > "${data.template_file.user_file.0.rendered}"
         EOF
     }
 }
