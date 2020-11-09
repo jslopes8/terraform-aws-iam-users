@@ -55,7 +55,7 @@ resource "null_resource" "password_decrypt" {
         command     = <<EOF
             echo "${aws_iam_user_login_profile.login-profile.0.encrypted_password}" | \
             base64 -d | \
-            keybase pgp decrypt > > "${data.template_file.user_file.rendered}"
+            keybase pgp decrypt > > "${data.template_file.user_file.0.rendered}"
         EOF
     }
 }
@@ -71,5 +71,5 @@ data "local_file" "user_file" {
     depends_on = [ aws_iam_user_login_profile.login-profile, null_resource.password_decrypt ]
     count = var.create_user && var.iam_user_login_profile ? 1 : 0
 
-    filename = "${data.template_file.user_file.rendered}"
+    filename = "${data.template_file.user_file.0.rendered}"
 }
