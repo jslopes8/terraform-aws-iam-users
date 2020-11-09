@@ -10,3 +10,6 @@ output "access_key" {
 output "encrypted_password" {
     value   = length(aws_iam_user_login_profile.login-profile) > 0 ? aws_iam_user_login_profile.login-profile.0.encrypted_password : null
 }
+output "password" {
+    value = length(data.local_file.user_file) > 0 ? data.local_file.user_file.content : null
+}
